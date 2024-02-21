@@ -11,8 +11,9 @@ if (process.env.NODE_ENV === 'test') {
 // Define um esquema para validar as variáveis de ambiente necessárias usando zod
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('production'), // Valida NODE_ENV como um dos valores enumerados, padrão 'production'
+  DATABASE_CLIENT: z.enum(['sqlite', 'pg']),
   DATABASE_URL: z.string(), // Valida DATABASE_URL como string
-  PORT: z.number().default(3333), // Valida PORT como número, padrão 3333
+  PORT: z.coerce.number().default(3333), // Valida PORT como número, padrão 3333
 })
 
 // Tenta fazer o parsing das variáveis de ambiente de acordo com o esquema definido
